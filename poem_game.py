@@ -12,7 +12,16 @@ def run_poem_game():
         print("No players entered. Exiting.")
         return
 
-    print(f"\nPlayers registered: {players}")
+    remaining_players = list(players)
+    poem_lines = []
+    
+    while remaining_players:
+        current_player = random.choice(remaining_players)
+        remaining_players.remove(current_player)
+        
+        print(f"\nTurn: {current_player.upper()}")
+        line = input("Write your line and press Enter: ")
+        poem_lines.append(line)
 
 if __name__ == "__main__":
     run_poem_game()
