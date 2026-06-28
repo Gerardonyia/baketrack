@@ -32,5 +32,12 @@ def run_poem_game():
         line = input("Write your line and press Enter: ")
         poem_lines.append(line)
 
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("=== FINAL POEM ===")
+    for line in poem_lines:
+        print(line)
+    print("==================")
+    print("\nGame Over! All players have taken their turn.")
+
 if __name__ == "__main__":
     run_poem_game()
