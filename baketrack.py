@@ -64,46 +64,70 @@ class BakeryApp:
 
     def run(self):
         while True:
-            print("\n--- BakeTrack Menu ---")
-            print("1. Add Employee\n2. Add Product\n3. View Employees\n4. View Products\n5. Exit")
-            choice = input("Select an option: ").strip()
+            print("\n" + "=" * 40)
+            print("         BAKETRACK DASHBOARD         ")
+            print("=" * 40)
+            print(" [1] Add New Employee")
+            print(" [2] Add New Product")
+            print(" [3] View All Employees")
+            print(" [4] View All Products")
+            print(" [5] Exit System")
+            print("-" * 40)
+            
+            choice = input("Select an option (1-5): ").strip()
+            print("-" * 40)
 
             if choice == "1":
                 name = input("Enter employee name: ")
                 valid_name = self.validator.validate_name(name)
                 if valid_name:
                     self.db.add_employee(valid_name)
-                    print("Employee added.")
+                    print("\nSuccess: Employee added successfully!")
                 else:
-                    print("Invalid name. Must be at least 3 letters.")
+                    print("\nError: Invalid name. Must be at least 3 letters.")
 
             elif choice == "2":
                 name = input("Enter product name: ")
                 valid_name = self.validator.validate_name(name)
                 if not valid_name:
-                    print("Invalid name. Must be at least 3 letters.")
+                    print("\nError: Invalid name. Must be at least 3 letters.")
                     continue
                 
                 price_str = input("Enter product price: ")
                 valid_price = self.validator.validate_price(price_str)
                 if valid_price:
                     self.db.add_product(valid_name, valid_price)
-                    print("Product added.")
+                    print("\nSuccess: Product added successfully!")
                 else:
-                    print("Invalid price. Must be a positive number.")
+                    print("\nError: Invalid price. Must be a positive number.")
 
             elif choice == "3":
                 employees = self.db.get_employees()
-                for emp in employees:
-                    print(f"ID: {emp[0]} | Name: {emp[1]}")
+                if not employees:
+                    print("Notice: No employees found in the database.")
+                else:
+                    print(f"{'ID':<6} | {'EMPLOYEE NAME':<25}")
+                    print("-" * 40)
+                    for emp in employees:
+                        print(f"{emp[0]:<6} | {emp[1]:<25}")
 
             elif choice == "4":
                 products = self.db.get_products()
-                for prod in products:
-                    print(f"ID: {prod[0]} | Name: {prod[1]} | Price: ₦{prod[2]}")
+                if not products:
+                    print("Notice: No products found in the database.")
+                else:
+                    print(f"{'ID':<6} | {'PRODUCT NAME':<20} | {'PRICE':<10}")
+                    print("-" * 40)
+                    for prod in products:
+                        print(f"{prod[0]:<6} | {prod[1]:<20} | ₦{prod[2]:<10,}")
 
             elif choice == "5":
+                print("Shutting down BakeTrack. Goodbye!")
+                print("=" * 40 + "\n")
                 break
+            
+            else:
+                print("\nError: Invalid selection. Please choose a number between 1 and 5.")
 
 if __name__ == "__main__":
     app = BakeryApp()
