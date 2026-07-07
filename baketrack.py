@@ -104,3 +104,7 @@ class BakeryApp:
 
             elif choice == "5":
                 break
+
+if __name__ == "__main__":
+    app = BakeryApp()
+    app.run()
